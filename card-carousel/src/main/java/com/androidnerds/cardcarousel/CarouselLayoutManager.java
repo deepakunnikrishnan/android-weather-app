@@ -12,7 +12,7 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
     }
 
     public static final String TAG = "LooperLayoutManager";
-    private LayoutCompletionListener layoutCompletionListener;
+    private final LayoutCompletionListener layoutCompletionListener;
 
     public CarouselLayoutManager(LayoutCompletionListener layoutCompletionListener) {
         this.layoutCompletionListener = layoutCompletionListener;
@@ -31,35 +31,42 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
     @Override
     public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int scrollDistance = fill(dx, recycler, state);
-        transformChildViews();
         if (scrollDistance == 0) {
             return 0;
         }
+        transformChildViews();
         offsetChildrenHorizontal(-scrollDistance);
-        recyclerHideView(dx, recycler, state);
+        removeAndRecycleHiddenView(dx, recycler);
         return scrollDistance;
     }
 
-    private void transformChildViews() {
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (getItemCount() <= 0) {
+            return;
+        }
+        if (state.isPreLayout()) {
+            return;
+        }
+        detachAndScrapAttachedViews(recycler);
+        int actualWidth = 0;
         float midPoint = getWidth() / 2.0f;
-        float d0 = 0.f;
-        float mShrinkDistance = 0.9f;
-        float d1 = mShrinkDistance * midPoint;
-        float s0 = 1.f;
-        float mShrinkAmount = 0.15f;
-        float s1 = 1.f - mShrinkAmount;
-        for (int i = 0; i < getChildCount(); i++) {
-            View child = getChildAt(i);
-            float childMidPoint =
-                    (getDecoratedRight(child) + getDecoratedLeft(child)) / 2.f;
-            float d = Math.min(d1, Math.abs(midPoint - childMidPoint));
-            float scale = s0 + (s1 - s0) * (d - d0) / (d1 - d0);
-            child.setScaleX(scale);
-            child.setScaleY(scale);
+        for (int i = 0; i < getItemCount(); i++) {
+            actualWidth = layoutItemView(recycler, actualWidth, midPoint, i);
+        }
+        fill(-1, recycler, state);
+    }
+
+    @Override
+    public void onLayoutCompleted(RecyclerView.State state) {
+        super.onLayoutCompleted(state);
+        transformChildViews();
+        if (null != layoutCompletionListener) {
+            layoutCompletionListener.onLayoutCompleted();
         }
     }
 
-    private void recyclerHideView(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
+    private void removeAndRecycleHiddenView(int dx, RecyclerView.Recycler recycler) {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (null == view) {
@@ -128,40 +135,38 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         return dx;
     }
 
-
-    @Override
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        if (getItemCount() <= 0) {
-            return;
+    private int layoutItemView(RecyclerView.Recycler recycler, int actualWidth, float midPoint, int i) {
+        View itemView = recycler.getViewForPosition(i);
+        addView(itemView);
+        measureChildWithMargins(itemView, 0, 0);
+        int width = getDecoratedMeasuredWidth(itemView);
+        int height = getDecoratedMeasuredHeight(itemView);
+        if (i == 0) {
+            layoutDecorated(itemView, (int) (midPoint - width / 2), 0, (int) (midPoint + width / 2), height);
+            actualWidth = (int) (midPoint + width / 2);
+        } else {
+            layoutDecorated(itemView, actualWidth, 0, actualWidth + width, height);
+            actualWidth += width;
         }
-        if (state.isPreLayout()) {
-            return;
-        }
-        detachAndScrapAttachedViews(recycler);
-        int actualWidth = 0;
-        float midPoint = getWidth() / 2.0f;
-        for (int i = 0; i < getItemCount(); i++) {
-            View itemView = recycler.getViewForPosition(i);
-            addView(itemView);
-            measureChildWithMargins(itemView, 0, 0);
-            int width = getDecoratedMeasuredWidth(itemView);
-            int height = getDecoratedMeasuredHeight(itemView);
-            if (i == 0) {
-                layoutDecorated(itemView, (int) (midPoint - width / 2), 0, (int) (midPoint + width / 2), height);
-                actualWidth = (int) (midPoint + width / 2);
-            } else {
-                layoutDecorated(itemView, actualWidth, 0, actualWidth + width, height);
-                actualWidth += width;
-            }
-        }
-        fill(-1, recycler, state);
+        return actualWidth;
     }
 
-    @Override
-    public void onLayoutCompleted(RecyclerView.State state) {
-        super.onLayoutCompleted(state);
-        if (null != layoutCompletionListener) {
-            layoutCompletionListener.onLayoutCompleted();
+    private void transformChildViews() {
+        float midPoint = getWidth() / 2.0f;
+        float d0 = 0.f;
+        float mShrinkDistance = 0.9f;
+        float d1 = mShrinkDistance * midPoint;
+        float s0 = 1.f;
+        float mShrinkAmount = 0.15f;
+        float s1 = 1.f - mShrinkAmount;
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            float childMidPoint =
+                    (getDecoratedRight(child) + getDecoratedLeft(child)) / 2.f;
+            float d = Math.min(d1, Math.abs(midPoint - childMidPoint));
+            float scale = s0 + (s1 - s0) * (d - d0) / (d1 - d0);
+            child.setScaleX(scale);
+            child.setScaleY(scale);
         }
     }
 }

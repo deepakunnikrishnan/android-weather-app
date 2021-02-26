@@ -58,6 +58,11 @@ public class CarouselView extends RecyclerView implements
     }
 
     @Override
+    public boolean canScrollVertically(int direction) {
+        return false;
+    }
+
+    @Override
     public void onSnapPositionChanged(int position) {
         if(null != itemSelectedListener) {
             itemSelectedListener.onItemSelected(position);

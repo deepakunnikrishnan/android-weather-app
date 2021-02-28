@@ -18,6 +18,16 @@ public class WeatherCard {
     private WeatherInfoLabelView.LabelInfo wind;
     private WeatherInfoLabelView.LabelInfo humidity;
 
+    private boolean empty;
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
+    }
+
     public int getLocationId() {
         return locationId;
     }

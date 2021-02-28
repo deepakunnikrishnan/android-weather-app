@@ -68,4 +68,9 @@ public class GetMajorCitiesWeatherUseCase {
         liveData.postValue(new Result<>(null, throwable));
         System.out.println("onFailure: " + throwable.getMessage());
     }
+
+    public void clear() {
+        compositeDisposable.clear();
+        compositeDisposable.dispose();
+    }
 }

@@ -14,9 +14,8 @@ import androidx.databinding.DataBindingUtil;
 import com.androidnerds.weatherview.R;
 import com.androidnerds.weatherview.databinding.ItemWeatherCardBinding;
 import com.androidnerds.weatherview.presentation.model.WeatherCard;
-import com.google.android.material.card.MaterialCardView;
 
-public class WeatherInfoCardView extends MaterialCardView {
+public class WeatherInfoCardView extends BaseCardView {
 
 
     private ItemWeatherCardBinding binding;
@@ -33,10 +32,6 @@ public class WeatherInfoCardView extends MaterialCardView {
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         binding = DataBindingUtil.inflate(inflater, R.layout.item_weather_card, this, true);
-        setCardElevation(5);
-        setStrokeColor(context.getColor(android.R.color.darker_gray));
-        setStrokeWidth(context.getResources().getDimensionPixelSize(R.dimen.card_border));
-        setRadius(context.getResources().getDimensionPixelSize(R.dimen.card_radius));
     }
 
     @BindingAdapter("data")

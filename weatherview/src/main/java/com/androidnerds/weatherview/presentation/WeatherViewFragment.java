@@ -34,7 +34,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class WeatherViewFragment extends Fragment implements PermissionCallbackDelegate.PermissionCallback {
+public class WeatherViewFragment extends Fragment implements
+        PermissionCallbackDelegate.PermissionCallback, WeatherCardsAdapter.OnMyLocationClickListener {
 
     private WeatherViewViewModel mViewModel;
     private WeatherViewFragmentBinding binding;
@@ -71,11 +72,6 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
         permissionCallbackDelegate = new PermissionCallbackDelegate(this, this);
         setupWeatherInfoCarousel();
         setupForecastList();
-        setupCurrentLocationForecast();
-    }
-
-    private void setupCurrentLocationForecast() {
-        binding.button.setOnClickListener(v -> fetchUserLocationWeatherData());
     }
 
     private void fetchUserLocationWeatherData() {
@@ -92,6 +88,10 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this, weatherViewModelFactory).get(WeatherViewViewModel.class);
+        observeViewModel();
+    }
+
+    private void observeViewModel() {
         mViewModel.getWeatherInfoMediatorLiveData()
                 .observe(getViewLifecycleOwner(), weatherViewData -> {
                     binding.progressBar.setVisibility(View.GONE);
@@ -123,7 +123,7 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
         if (null == weatherCardList) {
             weatherCardList = new ArrayList<>();
         }
-        adapter = new WeatherCardsAdapter(weatherCardList);
+        adapter = new WeatherCardsAdapter(weatherCardList, this);
         binding.carouselView.setAdapter(adapter);
         binding.carouselView.setItemSelectedListener(this::onCardSelected);
     }
@@ -154,6 +154,11 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
 
     @Override
     public void onPermissionGranted() {
+        fetchUserLocationWeatherData();
+    }
+
+    @Override
+    public void onMyLocationClicked() {
         fetchUserLocationWeatherData();
     }
 }

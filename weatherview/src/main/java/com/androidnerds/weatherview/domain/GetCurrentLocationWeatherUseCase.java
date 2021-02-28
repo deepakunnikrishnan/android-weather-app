@@ -61,4 +61,9 @@ public class GetCurrentLocationWeatherUseCase {
     private void onFailure(Throwable throwable) {
         weatherInfoMutableLiveData.postValue(new Result<>(null, throwable));
     }
+
+    public void clear() {
+        compositeDisposable.clear();
+        compositeDisposable.dispose();
+    }
 }

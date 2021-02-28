@@ -5,8 +5,16 @@ import java.util.List;
 public class WeatherViewData {
 
     private WeatherCard weatherCard;
-
     private List<ForecastViewData> forecastViewDataList;
+    private boolean empty;
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
+    }
 
     public WeatherCard getWeatherCard() {
         return weatherCard;

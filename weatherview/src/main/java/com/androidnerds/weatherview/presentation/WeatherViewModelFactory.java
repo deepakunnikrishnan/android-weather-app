@@ -12,16 +12,13 @@ import javax.inject.Inject;
 
 public class WeatherViewModelFactory implements ViewModelProvider.Factory {
 
-    private final GetLocationUseCase locationUseCase;
     private final GetCurrentLocationWeatherUseCase locationWeatherUseCase;
     private final GetMajorCitiesWeatherUseCase majorCitiesWeatherUseCase;
 
 
     @Inject
-    public WeatherViewModelFactory(GetLocationUseCase locationUseCase,
-                                   GetCurrentLocationWeatherUseCase locationWeatherUseCase,
+    public WeatherViewModelFactory(GetCurrentLocationWeatherUseCase locationWeatherUseCase,
                                    GetMajorCitiesWeatherUseCase majorCitiesWeatherUseCase) {
-        this.locationUseCase = locationUseCase;
         this.locationWeatherUseCase = locationWeatherUseCase;
         this.majorCitiesWeatherUseCase = majorCitiesWeatherUseCase;
     }
@@ -30,7 +27,7 @@ public class WeatherViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass.isAssignableFrom(WeatherViewViewModel.class)) {
-            return (T) new WeatherViewViewModel(locationUseCase, locationWeatherUseCase, majorCitiesWeatherUseCase);
+            return (T) new WeatherViewViewModel(locationWeatherUseCase, majorCitiesWeatherUseCase);
         }
         return null;
     }

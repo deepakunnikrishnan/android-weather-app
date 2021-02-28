@@ -19,7 +19,8 @@ public class LocationLocalDataSource {
         cities.add("San Francisco");
         cities.add("San Jose");
         cities.add("New York");
-        //cities.add("New Jersey");
+        cities.add("London");
+        cities.add("Dubai");
 
         return Single.just(cities);
     }

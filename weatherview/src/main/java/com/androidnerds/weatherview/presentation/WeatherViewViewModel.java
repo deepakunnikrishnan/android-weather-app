@@ -15,15 +15,12 @@ import java.util.List;
 
 public class WeatherViewViewModel extends ViewModel {
 
-    private final GetLocationUseCase locationUseCase;
     private final GetCurrentLocationWeatherUseCase locationWeatherUseCase;
     private final GetMajorCitiesWeatherUseCase majorCitiesWeatherUseCase;
     private final MediatorLiveData<List<WeatherViewData>> weatherInfoMediatorLiveData = new MediatorLiveData<>();
 
-    public WeatherViewViewModel(GetLocationUseCase locationUseCase,
-                                GetCurrentLocationWeatherUseCase locationWeatherUseCase,
+    public WeatherViewViewModel(GetCurrentLocationWeatherUseCase locationWeatherUseCase,
                                 GetMajorCitiesWeatherUseCase majorCitiesWeatherUseCase) {
-        this.locationUseCase = locationUseCase;
         this.locationWeatherUseCase = locationWeatherUseCase;
         this.majorCitiesWeatherUseCase = majorCitiesWeatherUseCase;
         weatherInfoMediatorLiveData.addSource(majorCitiesWeatherUseCase.getLiveData(), weatherInfoMediatorLiveData::postValue);

@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -79,8 +78,8 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
     }
 
     private void fetchUserLocationWeatherData() {
-        if(LocationUtility.hasLocationEnabled(requireContext())) {
-            if(PermissionUtility.hasLocationPermission(requireContext())) {
+        if (LocationUtility.hasLocationEnabled(requireContext())) {
+            if (PermissionUtility.hasLocationPermission(requireContext())) {
                 mViewModel.fetchUserLocation();
             } else {
                 PermissionUtility.requestPermission(this, PermissionCallbackDelegate.REQUEST_LOCATION_PERMISSION);
@@ -94,6 +93,7 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
         mViewModel = new ViewModelProvider(this, weatherViewModelFactory).get(WeatherViewViewModel.class);
         mViewModel.getWeatherInfoMediatorLiveData()
                 .observe(getViewLifecycleOwner(), weatherViewData -> {
+                    binding.progressBar.setVisibility(View.GONE);
                     List<WeatherCard> cardList = new ArrayList<>();
                     for (WeatherViewData viewData : weatherViewData) {
                         cardList.add(viewData.getWeatherCard());
@@ -108,17 +108,23 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
         PermissionUtility.onPermissionResult(requestCode, permissions, grantResults, permissionCallbackDelegate);
     }
 
+    /**
+     * Initialize and set the CarouselView for the weather.
+     */
     private void setupWeatherInfoCarousel() {
         if (null == weatherCardList) {
             weatherCardList = new ArrayList<>();
         }
         adapter = new WeatherCardsAdapter(weatherCardList);
-        binding.carouselView.setItemSelectedListener(this::onCardSelected);
         binding.carouselView.setAdapter(adapter);
+        binding.carouselView.setItemSelectedListener(this::onCardSelected);
     }
 
+    /**
+     * Initialize and set the recyclerview for displaying the Daily Forecast.
+     */
     private void setupForecastList() {
-        if(null == forecastViewDataList) {
+        if (null == forecastViewDataList) {
             forecastViewDataList = new ArrayList<>();
         }
         forecastListAdapter = new ForecastListAdapter(forecastViewDataList);
@@ -129,12 +135,13 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
     }
 
     private void onCardSelected(int position) {
-        if(position >= 0) {
+        if (position >= 0) {
             List<WeatherViewData> viewData = mViewModel.getWeatherInfoMediatorLiveData().getValue();
-            if(null != viewData && !viewData.isEmpty() && position < viewData.size()) {
+            if (null != viewData && !viewData.isEmpty() && position < viewData.size()) {
                 forecastListAdapter.submitList(viewData.get(position).getForecastViewDataList());
             }
         }
+        binding.recyclerViewForecast.smoothScrollToPosition(0);
     }
 
     @Override

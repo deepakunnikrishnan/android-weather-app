@@ -13,22 +13,23 @@ import java.util.TimeZone;
 public class DateUtil {
 
     private static final String ISO_DATE_FORMAT = "yyyy-MM-dd";
-    private static final String ISO_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final String ISO_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'";
     private static final String ISO_DATE_TIME_FORMAT_WITH_OFFSET = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
 
     public static Date stringToDate(String dateString) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             OffsetDateTime odt = OffsetDateTime.parse(dateString);
             Instant instant = odt.toInstant();
             return Date.from(instant);
         } else {
-            DateFormat dateFormat = new SimpleDateFormat(ISO_DATE_TIME_FORMAT_WITH_OFFSET, Locale.US);
-            try {
-                return dateFormat.parse(dateString);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+
+        }*/
+        DateFormat dateFormat = new SimpleDateFormat(ISO_DATE_TIME_FORMAT, Locale.US);
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return null;
     }

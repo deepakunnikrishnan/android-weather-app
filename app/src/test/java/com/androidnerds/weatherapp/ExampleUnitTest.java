@@ -1,4 +1,4 @@
-package com.androidnerds.newsapp;
+package com.androidnerds.weatherapp;
 
 import org.junit.Test;
 

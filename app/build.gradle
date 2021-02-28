@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.androidnerds.newsapp"
+        applicationId "com.androidnerds.weatherapp"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

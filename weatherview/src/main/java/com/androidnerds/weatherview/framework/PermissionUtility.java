@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+/**
+ * Utility class for permission handling.
+ * Leverages the {@link EasyPermissions} library.
+ */
 public class PermissionUtility {
 
     public static boolean hasLocationPermission(Context context) {

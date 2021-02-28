@@ -16,6 +16,9 @@ import com.androidnerds.weatherview.databinding.ItemInfoLabelBinding;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * CustomView for displaying a Title and SubTitle used as part of the WeatherCard.
+ */
 public class WeatherInfoLabelView extends ConstraintLayout {
 
     public static class LabelInfo {
@@ -68,11 +71,4 @@ public class WeatherInfoLabelView extends ConstraintLayout {
         binding.executePendingBindings();
     }
 
-    /*@BindingAdapter("labelInfo")
-    public static void setLabelInfo(WeatherInfoLabelView view, LabelInfo labelInfo) {
-        view.binding.setInfo(labelInfo);
-        view.binding.executePendingBindings();
-        //binding.setInfo(labelInfo);
-        //binding.executePendingBindings();
-    }*/
 }

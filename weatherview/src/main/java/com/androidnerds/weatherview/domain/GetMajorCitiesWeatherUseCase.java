@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.androidnerds.common.Result;
 import com.androidnerds.common.mapping.Mapper;
+import com.androidnerds.weatherview.data.DeviceLocationRepository;
 import com.androidnerds.weatherview.data.LocationRepository;
 import com.androidnerds.weatherview.domain.model.WeatherInfo;
 import com.androidnerds.weatherview.presentation.model.WeatherViewData;
@@ -19,6 +20,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Function;
 
+/**
+ * UseCase for fetching the WeatherData for the major cities.
+ * The UseCase class communicates with the data layer.
+ * The result for the UseCase is delivered to the presentation layer via LiveData.
+ */
 public class GetMajorCitiesWeatherUseCase {
 
     protected MutableLiveData<Result<List<WeatherViewData>,Throwable>> liveData = new MutableLiveData<>();
@@ -38,8 +44,13 @@ public class GetMajorCitiesWeatherUseCase {
         this.compositeDisposable = new CompositeDisposable();
     }
 
+    /**
+     * On calling the execute, the UseCase class performs the below:
+     * 1. Fetches the list of cities using the {@link LocationRepository#getCities()}
+     * 2. Uses the name from the list to retrieve the locationInfo via the {@link IWeatherRepository#getLocationInfo(String)}
+     * 3. Fetches the Weather info for the location via the {@link IWeatherRepository#getWeatherInfo(int)}
+     */
     public void execute() {
-
         Disposable disposable = this.locationRepository.getCities()
                 .flatMapObservable((Function<List<String>, ObservableSource<WeatherInfo>>) cities -> Observable.fromIterable(cities)
                         .concatMapSingle((Function<String, SingleSource<WeatherInfo>>) locationId -> weatherRepository.getLocationInfo(locationId)

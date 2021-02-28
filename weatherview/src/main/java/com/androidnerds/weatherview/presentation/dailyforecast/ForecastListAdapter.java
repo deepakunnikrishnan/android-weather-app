@@ -14,6 +14,9 @@ import com.androidnerds.weatherview.presentation.model.ForecastViewData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter class for displaying the daily forecast for the currently selected city.
+ */
 public class ForecastListAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
     List<ForecastViewData> forecastViewDataList;

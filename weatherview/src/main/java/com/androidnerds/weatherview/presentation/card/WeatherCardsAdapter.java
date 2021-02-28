@@ -13,16 +13,18 @@ import com.androidnerds.weatherview.presentation.model.WeatherCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter implementation for the Weather Cards displayed in the UI.
+ */
 public class WeatherCardsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface OnMyLocationClickListener {
         void onMyLocationClicked();
     }
 
-    private final List<WeatherCard> weatherCardList;
     private static final int VIEW_TYPE_EMPTY = 1;
-
-    private OnMyLocationClickListener locationClickListener;
+    private final List<WeatherCard> weatherCardList;
+    private final OnMyLocationClickListener locationClickListener;
 
     public WeatherCardsAdapter(@NonNull List<WeatherCard> weatherCards,
                                @NonNull OnMyLocationClickListener myLocationClickListener) {

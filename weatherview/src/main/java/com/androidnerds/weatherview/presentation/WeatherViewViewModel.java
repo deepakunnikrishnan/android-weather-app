@@ -19,6 +19,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * ViewModel class for the WeatherView.
+ * Uses the {@link GetCurrentLocationWeatherUseCase} & {@link GetMajorCitiesWeatherUseCase} for performing the
+ * main uses related to the app.
+ */
 public class WeatherViewViewModel extends ViewModel {
 
     private final GetCurrentLocationWeatherUseCase locationWeatherUseCase;

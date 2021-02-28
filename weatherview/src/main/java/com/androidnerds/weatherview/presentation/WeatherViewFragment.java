@@ -94,6 +94,7 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
         mViewModel.getWeatherInfoMediatorLiveData()
                 .observe(getViewLifecycleOwner(), weatherViewData -> {
                     binding.progressBar.setVisibility(View.GONE);
+                    binding.textViewLabel.setVisibility(View.VISIBLE);
                     List<WeatherCard> cardList = new ArrayList<>();
                     for (WeatherViewData viewData : weatherViewData) {
                         cardList.add(viewData.getWeatherCard());

@@ -91,8 +91,6 @@ public class GetMajorCitiesWeatherUseCaseTest {
         Gson gson = RemoteModule.provideGson();
         Mockito.when(weatherRepository.getLocationInfo(anyString()))
                 .thenReturn(Single.just(gson.fromJson(mockResponseFileReader.getContent(), LocationInfo.class)));
-        Mockito.when(weatherRepository.getLocationInfo(anyDouble(),anyDouble()))
-                .thenReturn(Single.just(gson.fromJson(mockResponseFileReader.getContent(), LocationInfo.class)));
 
         mockResponseFileReader = new MockResponseFileReader(ApiConstants.WEATHER_INFO);
         Mockito.when(weatherRepository.getWeatherInfo(anyInt()))

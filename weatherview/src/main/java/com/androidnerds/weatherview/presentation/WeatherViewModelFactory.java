@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.androidnerds.weatherview.domain.GetCurrentLocationWeatherUseCase;
-import com.androidnerds.weatherview.domain.GetLocationUseCase;
 import com.androidnerds.weatherview.domain.GetMajorCitiesWeatherUseCase;
 
 import javax.inject.Inject;

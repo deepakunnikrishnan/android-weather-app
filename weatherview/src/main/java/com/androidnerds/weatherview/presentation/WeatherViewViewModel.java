@@ -2,11 +2,9 @@ package com.androidnerds.weatherview.presentation;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.androidnerds.weatherview.domain.GetCurrentLocationWeatherUseCase;
-import com.androidnerds.weatherview.domain.GetLocationUseCase;
 import com.androidnerds.weatherview.domain.GetMajorCitiesWeatherUseCase;
 import com.androidnerds.weatherview.presentation.model.WeatherViewData;
 

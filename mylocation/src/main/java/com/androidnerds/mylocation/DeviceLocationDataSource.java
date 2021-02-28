@@ -25,9 +25,13 @@ import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
+/**
+ * Implementation of the {@link FusedLocationProviderClient} for fetching the current location of the user.
+ * This class provides the change in location of the user via {@link Flowable<DeviceLocation>}.
+ */
 public class DeviceLocationDataSource {
 
-    private Context context;
+    private final Context context;
     private final FusedLocationProviderClient locationProviderClient;
     private LocationRequest locationRequest;
     private final DeviceLocationCallback locationCallback;
@@ -46,17 +50,9 @@ public class DeviceLocationDataSource {
 
 
     public Flowable<DeviceLocation> getDeviceLocation() {
-        return deviceLocationFlowable.doOnSubscribe(new Consumer<Subscription>() {
-            @Override
-            public void accept(Subscription subscription) throws Throwable {
-                getCurrentLocation();
-            }
-        }).doOnCancel(new Action() {
-            @Override
-            public void run() throws Throwable {
-                stopLocationUpdate();
-            }
-        });
+        return deviceLocationFlowable
+                .doOnSubscribe(subscription -> getCurrentLocation())
+                .doOnCancel(this::stopLocationUpdate);
     }
 
     @SuppressLint("MissingPermission")

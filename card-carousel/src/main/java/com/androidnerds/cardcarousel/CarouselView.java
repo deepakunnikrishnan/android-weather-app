@@ -7,6 +7,13 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * RecyclerView implementation of a CarouselView in which the item in the middle will be zoomed in
+ * and user can see the near by item to left and right.
+ * Uses the {@link CarouselLayoutManager} class as the LayoutManager for the RecyclerView which performs the
+ * laying out of items in the recyclerview.
+ * uses the {@link LinearSnapHelper} for making sure the item is snapped after a scroll or fling.
+ */
 public class CarouselView extends RecyclerView implements
         SnapScrollListener.OnSnapPositionChangeListener, CarouselLayoutManager.LayoutCompletionListener{
 

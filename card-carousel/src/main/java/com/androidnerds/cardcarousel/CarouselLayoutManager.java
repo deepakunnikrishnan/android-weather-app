@@ -5,13 +5,18 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * LayoutManager implementation for the CarouselView.
+ * Performs the necessary to layout the items in the recyclerview such that items are placed
+ * as desired.
+ * Performs the transformation required for the items.
+ */
 public class CarouselLayoutManager extends RecyclerView.LayoutManager {
 
     public interface LayoutCompletionListener {
         void onLayoutCompleted();
     }
 
-    public static final String TAG = "LooperLayoutManager";
     private final LayoutCompletionListener layoutCompletionListener;
 
     public CarouselLayoutManager(LayoutCompletionListener layoutCompletionListener) {
@@ -40,6 +45,12 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         return scrollDistance;
     }
 
+    /**
+     * When OnLayoutChildren is called, performs the below:
+     * 1. Removes the existing views for recycling.
+     * 2. Calculates the position for each item and adds the items to the layout.
+     * 3. Fills the extra space left in the View after the childViews have been added.
+     */
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (getItemCount() <= 0) {
@@ -57,6 +68,11 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         fill(-1, recycler, state);
     }
 
+    /**
+     * When onLayoutCompleted is called, performs the below:
+     * 1. Performs the transformations for the child views.
+     * 2. Sends a callback to indicate the views have been layed out.
+     */
     @Override
     public void onLayoutCompleted(RecyclerView.State state) {
         super.onLayoutCompleted(state);
@@ -66,6 +82,11 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
+    /**
+     * Removing of the hidden views based on the scroll action.
+     * If the user is scrolling to the right, then removes the hidden views to the left. These will be recycled.
+     * if the user is scrolling to the left, then removes the hidden views to the right. These will be recycled.
+     */
     private void removeAndRecycleHiddenView(int dx, RecyclerView.Recycler recycler) {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
@@ -84,6 +105,15 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
+    /**
+     * Based on the user scroll action, performs the below:
+     * 1. If the user is scrolling to the right, then
+     * a) Checks if the user has reached the end of the list. If the user has reached the end,
+     * then adds the first item to the end of the list, to provide a carousel effect.
+     * 2. If the user is scrolling to the left, then
+     * a) Checks if the user has reached the start of the list. If the user has reached the end,
+     * then adds the first item to the end of the list, to provide a carousel effect.
+     */
     private int fill(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (dx > 0) {
             View lastView = getChildAt(getChildCount() - 1);
@@ -151,6 +181,9 @@ public class CarouselLayoutManager extends RecyclerView.LayoutManager {
         return actualWidth;
     }
 
+    /**
+     * Performs the scale transformation for the items in the UI.
+     */
     private void transformChildViews() {
         float midPoint = getWidth() / 2.0f;
         float d0 = 0.f;

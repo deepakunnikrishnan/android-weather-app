@@ -6,14 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+/**
+ * ScrollListener for the RecyclerView.
+ * Uses the {@link SnapHelper} to find the position of the view in focus
+ * and sends a callback to listener when the selected item changes via {@link OnSnapPositionChangeListener#onSnapPositionChanged(int)}
+ */
 public class SnapScrollListener extends RecyclerView.OnScrollListener {
 
     public interface OnSnapPositionChangeListener {
         void onSnapPositionChanged(int position);
     }
 
-    private SnapHelper snapHelper;
-    private OnSnapPositionChangeListener snapPositionChangeListener;
+    private final SnapHelper snapHelper;
+    private final OnSnapPositionChangeListener snapPositionChangeListener;
     private int currentSnapPosition = RecyclerView.NO_POSITION;
 
     public SnapScrollListener(SnapHelper snapHelper, OnSnapPositionChangeListener snapPositionChangeListener) {

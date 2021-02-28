@@ -3,6 +3,7 @@ package com.androidnerds.weatherview.domain;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
+import com.androidnerds.common.Result;
 import com.androidnerds.common.mapping.Mapper;
 import com.androidnerds.common.rx.SchedulerProvider;
 import com.androidnerds.weatherview.data.LocationRepository;
@@ -58,9 +59,9 @@ public class GetMajorCitiesWeatherUseCaseTest {
     SchedulerProvider schedulerProvider;
 
     @Mock
-    private Observer<List<WeatherViewData>> observer;
+    private Observer<Result<List<WeatherViewData>,Throwable>> observer;
     @Captor
-    private ArgumentCaptor<List<WeatherViewData>> argumentCaptor;
+    private ArgumentCaptor<Result<List<WeatherViewData>,Throwable>> argumentCaptor;
 
     @Before
     public void setUp() throws Exception {
@@ -108,7 +109,8 @@ public class GetMajorCitiesWeatherUseCaseTest {
         //verify
         Mockito.verify(observer).onChanged(argumentCaptor.capture());
         Assert.assertNotNull(argumentCaptor.getValue());
-        Assert.assertEquals(5, argumentCaptor.getValue().size());
+        Assert.assertNotNull(argumentCaptor.getValue().getData());
+        Assert.assertEquals(5, argumentCaptor.getValue().getData().size());
 
     }
 

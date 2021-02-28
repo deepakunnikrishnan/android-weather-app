@@ -2,6 +2,7 @@ package com.androidnerds.weatherview.domain;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.androidnerds.common.Result;
 import com.androidnerds.common.mapping.Mapper;
 import com.androidnerds.weatherview.data.LocationRepository;
 import com.androidnerds.weatherview.domain.model.WeatherInfo;
@@ -20,7 +21,7 @@ import io.reactivex.rxjava3.functions.Function;
 
 public class GetMajorCitiesWeatherUseCase {
 
-    protected MutableLiveData<List<WeatherViewData>> liveData = new MutableLiveData<>();
+    protected MutableLiveData<Result<List<WeatherViewData>,Throwable>> liveData = new MutableLiveData<>();
 
     private final IWeatherRepository weatherRepository;
     private final LocationRepository locationRepository;
@@ -55,15 +56,16 @@ public class GetMajorCitiesWeatherUseCase {
         this.compositeDisposable.add(disposable);
     }
 
-    public MutableLiveData<List<WeatherViewData>> getLiveData() {
+    public MutableLiveData<Result<List<WeatherViewData>,Throwable>> getLiveData() {
         return liveData;
     }
 
     private void onSuccess(List<WeatherViewData> weatherInfoList) {
-        liveData.postValue(weatherInfoList);
+        liveData.postValue(new Result<>(weatherInfoList, null));
     }
 
     private void onFailure(Throwable throwable) {
+        liveData.postValue(new Result<>(null, throwable));
         System.out.println("onFailure: " + throwable.getMessage());
     }
 }

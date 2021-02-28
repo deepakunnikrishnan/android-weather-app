@@ -27,6 +27,7 @@ import com.androidnerds.weatherview.presentation.model.ForecastViewData;
 import com.androidnerds.weatherview.presentation.model.WeatherCard;
 import com.androidnerds.weatherview.presentation.model.WeatherViewData;
 import com.androidnerds.weatherview.presentation.util.PermissionCallbackDelegate;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,12 @@ public class WeatherViewFragment extends Fragment implements PermissionCallbackD
                     }
                     adapter.submitList(cardList);
                 });
+        mViewModel.getErrorMessageEvent().observe(this, this::showError);
+    }
+
+    private void showError(String s) {
+        Snackbar snackbar = Snackbar.make(binding.getRoot(), "" + s, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
     @Override

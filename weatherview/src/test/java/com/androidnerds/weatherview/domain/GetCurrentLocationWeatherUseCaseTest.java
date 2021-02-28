@@ -3,6 +3,7 @@ package com.androidnerds.weatherview.domain;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
+import com.androidnerds.common.Result;
 import com.androidnerds.common.mapping.Mapper;
 import com.androidnerds.common.rx.SchedulerProvider;
 import com.androidnerds.mylocation.DeviceLocation;
@@ -52,9 +53,9 @@ public class GetCurrentLocationWeatherUseCaseTest {
     Mapper<WeatherInfo, WeatherViewData> weatherDataMapper;
     SchedulerProvider schedulerProvider;
     @Mock
-    private Observer<WeatherViewData> observer;
+    private Observer<Result<WeatherViewData,Throwable>> observer;
     @Captor
-    private ArgumentCaptor<WeatherViewData> argumentCaptor;
+    private ArgumentCaptor<Result<WeatherViewData,Throwable>> argumentCaptor;
 
     @Rule
     public final InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -98,6 +99,7 @@ public class GetCurrentLocationWeatherUseCaseTest {
         //verify
         Mockito.verify(observer).onChanged(argumentCaptor.capture());
         Assert.assertNotNull(argumentCaptor.getValue());
+        Assert.assertNotNull(argumentCaptor.getValue().getData());
     }
 
     @NotNull

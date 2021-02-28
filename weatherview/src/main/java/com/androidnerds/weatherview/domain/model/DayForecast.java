@@ -1,6 +1,7 @@
 package com.androidnerds.weatherview.domain.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class DayForecast {
 
@@ -139,4 +140,5 @@ public class DayForecast {
     public void setPredictability(int predictability) {
         this.predictability = predictability;
     }
+
 }

@@ -14,9 +14,9 @@ import io.reactivex.rxjava3.core.Single;
 
 public class WeatherRepository implements IWeatherRepository {
 
-    private WeatherRemoteDataSource weatherRemoteDataSource;
-    private Mapper<LocationInfoDto, LocationInfo> dtoLocationInfoMapper;
-    private Mapper<WeatherInfoDto, WeatherInfo> dtoWeatherInfoMapper;
+    private final WeatherRemoteDataSource weatherRemoteDataSource;
+    private final Mapper<LocationInfoDto, LocationInfo> dtoLocationInfoMapper;
+    private final Mapper<WeatherInfoDto, WeatherInfo> dtoWeatherInfoMapper;
 
     @Inject
     public WeatherRepository(WeatherRemoteDataSource weatherRemoteDataSource,
@@ -30,18 +30,18 @@ public class WeatherRepository implements IWeatherRepository {
     @Override
     public Single<LocationInfo> getLocationInfo(String query) {
         return weatherRemoteDataSource.getLocation(query)
-                .map(locationInfoDto -> dtoLocationInfoMapper.map(locationInfoDto));
+                .map(dtoLocationInfoMapper::map);
     }
 
     @Override
     public Single<LocationInfo> getLocationInfo(double latitude, double longitude) {
         return weatherRemoteDataSource.getLocation(latitude, longitude)
-                .map(locationInfoDto -> dtoLocationInfoMapper.map(locationInfoDto));
+                .map(dtoLocationInfoMapper::map);
     }
 
     @Override
     public Single<WeatherInfo> getWeatherInfo(int locationId) {
         return weatherRemoteDataSource.getWeather(locationId)
-                .map(weatherInfoDto -> dtoWeatherInfoMapper.map(weatherInfoDto));
+                .map(dtoWeatherInfoMapper::map);
     }
 }

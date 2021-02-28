@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single;
 
 public class LocationRepository implements ILocationRepository {
 
-    private LocationLocalDataSource locationLocalDataSource;
+    private final LocationLocalDataSource locationLocalDataSource;
 
     @Inject
     public LocationRepository(LocationLocalDataSource locationLocalDataSource) {

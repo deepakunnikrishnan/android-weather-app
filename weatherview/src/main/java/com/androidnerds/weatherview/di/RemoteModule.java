@@ -1,6 +1,7 @@
 package com.androidnerds.weatherview.di;
 
 import com.androidnerds.weatherview.data.remote.APIConstants;
+import com.androidnerds.weatherview.data.remote.ApiConfig;
 import com.androidnerds.weatherview.data.remote.service.WeatherDataService;
 import com.google.gson.Gson;
 
@@ -86,16 +87,21 @@ public class RemoteModule {
 
 
     @Provides
-    public static Retrofit provideRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory, RxJava3CallAdapterFactory adapterFactory) {
+    public static Retrofit provideRetrofit(ApiConfig apiConfig, OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory, RxJava3CallAdapterFactory adapterFactory) {
         if(null == retrofit) {
             retrofit  = new Retrofit.Builder()
-                    .baseUrl(APIConstants.BASE_URL)
+                    .baseUrl(apiConfig.getBaseUrl())
                     .client(okHttpClient)
                     .addCallAdapterFactory(adapterFactory)
                     .addConverterFactory(gsonConverterFactory)
                     .build();
         }
         return retrofit;
+    }
+
+    @Provides
+    public static ApiConfig provideApiConfig() {
+        return new ApiConfig(APIConstants.BASE_URL);
     }
 
     @Provides
@@ -122,5 +128,7 @@ public class RemoteModule {
     public static WeatherDataService provideWeatherDataService(Retrofit retrofit) {
         return retrofit.create(WeatherDataService.class);
     }
+
+
 
 }

@@ -1,0 +1,17 @@
+{
+  "id": 5978353975689216,
+  "weather_state_name": "Light Cloud",
+  "weather_state_abbr": "lc",
+  "wind_direction_compass": "ENE",
+  "created": "2021-02-28T03:20:02.609957Z",
+  "applicable_date": "2021-02-28",
+  "min_temp": 2.95,
+  "max_temp": 11.315,
+  "the_temp": 10.205,
+  "wind_speed": 4.99291958120841,
+  "wind_direction": 65.16662387203694,
+  "air_pressure": 1037.5,
+  "humidity": 65,
+  "visibility": 8.761644496142527,
+  "predictability": 70
+}

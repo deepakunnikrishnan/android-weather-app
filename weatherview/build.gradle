@@ -30,6 +30,10 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -56,7 +60,16 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
-    testImplementation 'junit:junit:4.+'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'pl.pojo:pojo-tester:0.7.6'
+    testImplementation "org.mockito:mockito-core:2.23.0"
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.9.0"
+    testImplementation group: 'androidx.arch.core', name: 'core-testing', version: '2.1.0'
+
+    testImplementation 'com.google.dagger:dagger:2.24'
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.24'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

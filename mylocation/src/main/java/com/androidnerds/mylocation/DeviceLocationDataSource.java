@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -74,7 +75,7 @@ public class DeviceLocationDataSource {
             locationRequest = LocationRequest.create();
             locationRequest.setInterval(1000);
             locationRequest.setFastestInterval(1000);
-            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         }
         requestLocationUpdates(locationRequest);
     }
@@ -104,6 +105,11 @@ public class DeviceLocationDataSource {
                     stopLocationUpdate();
                 }
             }
+        }
+
+        @Override
+        public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+            super.onLocationAvailability(locationAvailability);
         }
     }
 

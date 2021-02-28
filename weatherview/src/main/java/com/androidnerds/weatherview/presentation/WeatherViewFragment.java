@@ -106,6 +106,7 @@ public class WeatherViewFragment extends Fragment implements
     }
 
     private void showError(String s) {
+        binding.progressBar.setVisibility(View.GONE);
         Snackbar snackbar = Snackbar.make(binding.getRoot(), "" + s, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }

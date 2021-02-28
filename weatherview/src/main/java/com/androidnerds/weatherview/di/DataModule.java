@@ -20,6 +20,9 @@ import com.androidnerds.weatherview.domain.model.WeatherInfo;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Class forms the module for providing dependencies for Data layer.
+ */
 @Module(includes = {RemoteModule.class})
 public class DataModule {
 

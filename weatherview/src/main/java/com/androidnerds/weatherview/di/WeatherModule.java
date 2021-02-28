@@ -5,6 +5,9 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module for the WeatherView.
+ */
 @Module(includes = {
         DataModule.class,
         DomainModule.class,

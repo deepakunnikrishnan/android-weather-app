@@ -3,11 +3,16 @@ package com.androidnerds.weatherview.domain.mapper;
 import android.text.TextUtils;
 
 import com.androidnerds.common.mapping.Mapper;
+import com.androidnerds.weatherview.data.remote.dto.DayForecastDto;
 import com.androidnerds.weatherview.data.remote.dto.LocationInfoDto;
+import com.androidnerds.weatherview.domain.model.DayForecast;
 import com.androidnerds.weatherview.domain.model.LocationInfo;
 
 import javax.inject.Inject;
 
+/**
+ * Mapper implementation for mapping {@link LocationInfoDto} to {@link LocationInfo}
+ */
 public class LocationDtoToDomainMapper implements Mapper<LocationInfoDto, LocationInfo> {
 
     @Inject

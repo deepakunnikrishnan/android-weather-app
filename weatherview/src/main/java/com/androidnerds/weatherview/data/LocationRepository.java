@@ -9,6 +9,10 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
 
+/**
+ * Repository implementation of the Location data.
+ * Uses the {@link LocationLocalDataSource} for fetching the actual data.
+ */
 public class LocationRepository implements ILocationRepository {
 
     private final LocationLocalDataSource locationLocalDataSource;
@@ -18,6 +22,9 @@ public class LocationRepository implements ILocationRepository {
         this.locationLocalDataSource = locationLocalDataSource;
     }
 
+    /**
+     * @return a Single of the list with names of the cities.
+     */
     @Override
     public Single<List<String>> getCities() {
         return locationLocalDataSource.getCities();

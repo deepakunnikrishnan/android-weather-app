@@ -4,12 +4,17 @@ import com.androidnerds.common.mapping.ListMapper;
 import com.androidnerds.common.mapping.Mapper;
 import com.androidnerds.common.util.DateUtil;
 import com.androidnerds.weatherview.data.remote.dto.DayForecastDto;
+import com.androidnerds.weatherview.data.remote.dto.LocationInfoDto;
 import com.androidnerds.weatherview.data.remote.dto.WeatherInfoDto;
 import com.androidnerds.weatherview.domain.model.DayForecast;
+import com.androidnerds.weatherview.domain.model.LocationInfo;
 import com.androidnerds.weatherview.domain.model.WeatherInfo;
 
 import javax.inject.Inject;
 
+/**
+ * Mapper implementation for mapping {@link WeatherInfoDto} to {@link WeatherInfo}
+ */
 public class WeatherDtoToDomainMapper implements Mapper<WeatherInfoDto, WeatherInfo> {
 
     private final ListMapper<DayForecastDto, DayForecast> dtoDayForecastListMapper;

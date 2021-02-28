@@ -9,6 +9,9 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
+/**
+ * Mapper implementation for mapping {@link DayForecastDto} to {@link DayForecast}
+ */
 public class DayForecastDtoToDomainMapper implements Mapper<DayForecastDto, DayForecast> {
 
     @Inject

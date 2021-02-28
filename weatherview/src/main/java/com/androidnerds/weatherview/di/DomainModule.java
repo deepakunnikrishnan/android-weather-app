@@ -23,6 +23,10 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
+
+/**
+ * Class forms the module for providing dependencies for Domain layer.
+ */
 @Module
 public abstract class DomainModule {
 

@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+
+/**
+ * Mapper implementation for mapping {@link WeatherInfo} to {@link WeatherViewData}
+ */
 public class WeatherDomainToWeatherViewDataMapper implements Mapper<WeatherInfo, WeatherViewData> {
 
     private Mapper<WeatherInfo, WeatherCard> weatherCardMapper;

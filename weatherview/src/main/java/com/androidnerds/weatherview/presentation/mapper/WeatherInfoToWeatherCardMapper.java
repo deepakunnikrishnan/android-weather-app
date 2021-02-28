@@ -3,6 +3,7 @@ package com.androidnerds.weatherview.presentation.mapper;
 import com.androidnerds.common.mapping.Mapper;
 import com.androidnerds.weatherview.domain.model.DayForecast;
 import com.androidnerds.weatherview.domain.model.WeatherInfo;
+import com.androidnerds.weatherview.presentation.model.WeatherViewData;
 import com.androidnerds.weatherview.presentation.util.PresentationUtils;
 import com.androidnerds.weatherview.presentation.customviews.WeatherInfoLabelView;
 import com.androidnerds.weatherview.presentation.model.WeatherCard;
@@ -11,6 +12,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * Mapper implementation for mapping {@link WeatherInfo} to {@link WeatherCard}
+ */
 public class WeatherInfoToWeatherCardMapper implements Mapper<WeatherInfo, WeatherCard> {
 
     @Inject

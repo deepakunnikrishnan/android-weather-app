@@ -11,14 +11,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
+/**
+ * Interface for the API services of the app.
+ */
 public interface WeatherDataService {
 
-    //https://www.metaweather.com/api/location/search/?query=london
-    //https://www.metaweather.com/api/location/search/?lattlong=50.068,-5.316
     @GET("location/search/")
     Single<List<LocationInfoDto>> getLocation(@QueryMap Map<String, String> map);
 
-    //https://www.metaweather.com/api/location/44418/
     @GET("location/{woeid}/")
     Single<WeatherInfoDto> getWeather(@Path("woeid") int woeid);
 }

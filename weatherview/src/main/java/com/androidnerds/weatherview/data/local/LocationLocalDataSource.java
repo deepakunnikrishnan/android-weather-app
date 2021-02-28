@@ -7,6 +7,9 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
 
+/**
+ * DataSource for locations.
+ */
 public class LocationLocalDataSource {
 
     @Inject
@@ -14,6 +17,10 @@ public class LocationLocalDataSource {
 
     }
 
+    /**
+     * Implementation of getting the cities for the app.
+     * @return a Single with a list of cities.
+     */
     public Single<List<String>> getCities() {
         List<String> cities = new ArrayList<>();
         cities.add("San Francisco");

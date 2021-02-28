@@ -44,7 +44,12 @@ public class GetMajorCitiesWeatherUseCase {
                         .concatMapSingle((Function<String, SingleSource<WeatherInfo>>) locationId -> weatherRepository.getLocationInfo(locationId)
                                 .flatMap(locationInfo -> weatherRepository.getWeatherInfo(locationInfo.getLocationId()))
                         ))
-                .map(weatherDataMapper::map)
+                .map(new Function<WeatherInfo, WeatherViewData>() {
+                    @Override
+                    public WeatherViewData apply(WeatherInfo weatherInfo) throws Throwable {
+                        return weatherDataMapper.map(weatherInfo);
+                    }
+                })
                 .toList()
                 .subscribe(this::onSuccess, this::onFailure);
         this.compositeDisposable.add(disposable);

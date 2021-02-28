@@ -28,7 +28,6 @@ public class WeatherDtoToDomainMapperTest {
         WeatherInfoDto weatherInfoDto = gson.fromJson(mockResponseFileReader.getContent(), WeatherInfoDto.class);
 
         WeatherInfo weatherInfo = dtoToDomainMapper.map(weatherInfoDto);
-
         assertNotNull(weatherInfo);
         assertEquals(44418, weatherInfo.getLocationId());
         assertEquals("London", weatherInfo.getTitle());

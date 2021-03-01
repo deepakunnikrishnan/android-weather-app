@@ -1,0 +1,16 @@
+{
+  "id": 5978353975689216,
+  "weatherStateName": "Light Cloud",
+  "weatherStateAbbreviation": "lc",
+  "windDirectionCompass": "ENE",
+  "applicableTime": "Feb 28, 2021 12:00:00 AM",
+  "minTemperature": 2.95,
+  "maxTemperature": 11.315,
+  "currentTemperature": 10.205,
+  "windSpeed": 4.99291958120841,
+  "windDirection": 65.16662387203694,
+  "airPressure": 1037.5,
+  "humidity": 65,
+  "visibility": 8.761644496142527,
+  "predictability": 70
+}

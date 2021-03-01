@@ -1,2 +1,6 @@
+include ':common'
+include ':mylocation'
+include ':weatherview'
+include ':card-carousel'
 include ':app'
-rootProject.name = "NewsApp"
+rootProject.name = "WeatherApp"

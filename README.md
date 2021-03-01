@@ -32,12 +32,12 @@ The UI displays:
 
 WeatherView library uses the Card-Carousel and MyLocation libraries to implement the features.
 
-## Coding Style
+### Coding Style
 1. Presentation - Android MVVM with LiveData
 2. Domain - UseCases
 3. Data - Repository Design pattern
 
-## Technologies
+### Technologies
 1. Android Architecture components
 2. RxJava
 3. Retrofit, OkHTTP, Gson
@@ -73,6 +73,8 @@ calling the getDeviceLocation() method.
 
 ## Screenshots
 ![](screenshots/AppFlow.gif)
+![](screenshots/Screen1.png)
+![](screenshots/Screen2.png)
 
 
 
